@@ -1,0 +1,6 @@
+C:\Users\user\Documents\Data structures 2\Project 1\Project 1\bin\Debug\Project 1.exe.config
+C:\Users\user\Documents\Data structures 2\Project 1\Project 1\bin\Debug\Project 1.exe
+C:\Users\user\Documents\Data structures 2\Project 1\Project 1\bin\Debug\Project 1.pdb
+C:\Users\user\Documents\Data structures 2\Project 1\Project 1\obj\Debug\Homework1.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\Data structures 2\Project 1\Project 1\obj\Debug\Project 1.exe
+C:\Users\user\Documents\Data structures 2\Project 1\Project 1\obj\Debug\Project 1.pdb
