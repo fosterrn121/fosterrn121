@@ -1,0 +1,7 @@
+C:\Users\user\Documents\algo\Project1\Project1\bin\Release\Project1.exe.config
+C:\Users\user\Documents\algo\Project1\Project1\bin\Release\Project1.exe
+C:\Users\user\Documents\algo\Project1\Project1\bin\Release\Project1.pdb
+C:\Users\user\Documents\algo\Project1\Project1\obj\Release\Project1.csprojAssemblyReference.cache
+C:\Users\user\Documents\algo\Project1\Project1\obj\Release\Project1.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\algo\Project1\Project1\obj\Release\Project1.exe
+C:\Users\user\Documents\algo\Project1\Project1\obj\Release\Project1.pdb

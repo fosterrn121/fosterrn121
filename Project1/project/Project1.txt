@@ -1,0 +1,241 @@
+﻿//-----------------------------------------------------------------------------
+// File name:Project1.cs
+// Project name:Project 1
+// Creator’s name and email: Raven Foster fosterrn@estu.edu
+// Course-Section:  CSCI-3230-901
+//Creation Date:  09/9/2020
+// ----------------------------------------------------------------------------
+using System;
+using System.Numerics;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+
+namespace Project1
+{
+
+    /// <summary>
+    ///   <para>offers the best route between points.</para>
+    ///   <para></para>
+    /// </summary>
+    class Project1
+    {
+        
+        static void Main(string[] args)
+        {
+
+            
+            String input = Console.ReadLine();  // reads in input from the user 
+            int length;                               
+            Int32.TryParse(input, out length);
+            int[] tracking = new int[length];
+            
+            int[] quickestRoute = new int[length + 1];    
+
+            double[] xArray = new double[length + 1];  // represent an x coordinate
+            double[] yArray = new double[length + 1]; // represents the y coordinate
+
+            xArray[0] = 0.0; // sets value to default
+            yArray[0] = 0.0; // sets value to default
+            for (int i = 1; i <= length; i++)
+            {
+                input = Console.ReadLine();
+                string[] inputVal = input.Split(' ');// splits the string input and puts it into an array
+
+                Double.TryParse(inputVal[0], out xArray[i]);
+
+                Double.TryParse(inputVal[1], out yArray[i]);
+
+            }// end of for loop
+
+            for (int i = 1; i <= tracking.Length; i++)
+            {
+                tracking[i - 1] = i;
+            }// end of for loop
+            
+
+            double[,] distTable = BruteForceDistance(xArray, yArray);
+
+            BigInteger factorial = Factorialfinder(tracking.Length + 1);     
+            double minimum = Double.MaxValue;      
+
+
+            Stopwatch watch = Stopwatch.StartNew();   // records how long it takes the program to run
+
+            for (int i = 0; i < factorial; i++)
+            {
+                if (Break(ref tracking) != true)
+                {
+                    double currentDistance = distTable[0, tracking[0]];
+                    for (int j = 0; j < tracking.Length - 1; j++)
+                    {
+
+                        currentDistance += distTable[tracking[j], tracking[j + 1]];
+
+                    } // end for loop
+
+                    currentDistance += distTable[0, tracking[tracking.Length - 1]];
+                    if (minimum >= currentDistance)
+                    {
+                        minimum = currentDistance;
+                        quickestRoute[0] = 0;
+                        for (int k = 0; k < tracking.Length; k++)
+                        {
+                            quickestRoute[k + 1] = tracking[k] + 1;
+                        } // end for loop
+                    } // end if statement 
+                }
+                else
+                {
+                    break;
+                } // end if statement
+            } // end for loop
+
+
+            watch.Stop(); // stops stop watch
+            Console.WriteLine("The Time was {0} secs", watch.Elapsed.TotalMilliseconds / 1000);
+            Console.WriteLine("[{0}]", string.Join(", ", quickestRoute));
+
+            Console.WriteLine(String.Format("{0:0.##}", minimum));
+            Console.ReadLine();
+
+        } // end main statement
+
+
+        /// <summary>  calculates the closest pair </summary>
+        /// <param name="xArray">The coord1.</param>
+        /// <param name="yArray">The coord2.</param>
+        /// <returns></returns>
+        static double[,] BruteForceDistance(double[] xArray, double[] yArray)
+        {
+            double min = 0.000000; // sets default value
+            double[,] minimumT = new double[xArray.Length, yArray.Length];
+
+            if (xArray.Length < 2 && yArray.Length < 2)
+            {
+                min = Math.Sqrt((xArray[0] * xArray[0]) + (yArray[0] * yArray[0]));
+                minimumT[0, 0] = min;
+                minimumT[0, 0] = min;
+                return minimumT;
+            } // end of if statement
+
+            for (int i = 0; i < xArray.Length; i++)
+            {
+                for (int j = i + 1; j < xArray.Length; j++)
+                {
+                    Double length;
+
+                    length = Math.Sqrt((Math.Pow(xArray[j] - xArray[i], 2)) + (Math.Pow(yArray[j] - yArray[i], 2)));
+
+                    minimumT[i, j] = length;
+                    minimumT[j, i] = length;
+
+                } // end for loop
+
+            } // end for loop
+
+            return minimumT;
+
+        } // end Closest
+
+
+
+        /// <summary>
+        ///         <para>Switches the pivot points found in the array.</para>
+        /// <returns></returns>
+        static bool Break(ref int[] looking)
+        {
+            bool pivotF = false;
+            int pivotPoint = looking.Length - 2;
+            int compare = pivotPoint + 1;
+            while (pivotPoint > -1 && (looking[pivotPoint] > looking[compare]))
+            {
+                pivotPoint--;
+                compare--;
+            } // end while loop
+            if (pivotPoint == -1)
+            {
+                pivotF = true;
+            } 
+            else
+            {
+                RealignArray(ref looking, pivotPoint);
+            } // end if statement
+            return pivotF;
+        } // end Break
+
+
+        /// <summary>Realigns the specific array.</summary>
+        /// <param name="aligned">The aligned.</param>
+        /// <param name="pivotPoint">The pivot point.</param>
+        static void RealignArray(ref int[] aligned, int pivotPoint)
+        {
+            int finder = aligned.Length - 1;
+
+
+            bool ifTripped = false; // to get out of if statement
+
+            for (int i = aligned.Length - 1; i > pivotPoint && ifTripped == false; i--)
+            {
+                if (aligned[pivotPoint] < aligned[i])
+                {
+                    SwitchVal(ref aligned[pivotPoint], ref aligned[i]);
+                    RealignedArrayswitched(ref aligned, pivotPoint);
+                    ifTripped = true;
+                }
+                else
+                {
+                    
+                }// end if statement 
+            } // end for loop
+        } // end Realign
+
+
+        /// <summary>
+        ///   <para>
+        ///  finds and calculates the factorial.</para>
+        /// </summary>
+        /// <param name="factor">The factor.</param>
+        /// <returns></returns>
+        static int Factorialfinder(int factor)
+        {
+            int fact = 1;
+            for (int i = 1; i <= factor; i++)
+            {
+                fact *= i;
+            }
+            return fact;
+        } // end Factorial finder
+
+
+        /// <summary>Realigns the specified array.</summary>
+        /// <param name="array">The array.</param>
+        /// <param name="breakPoint">The break point.</param>
+        static void RealignedArrayswitched(ref int[] array, int breakPoint)
+        {
+            int start = breakPoint + 1;
+            int end = array.Length - 1;
+            while (start < end)
+            {
+                SwitchVal(ref array[start], ref array[end]);
+                start++;
+                end--;
+            } // end while loop
+        } // end Realigned Array Switched
+
+
+        /// <summary>Switches the values.</summary>
+        /// <param name="valA">The value a.</param>
+        /// <param name="valB">The value b.</param>
+        static void SwitchVal(ref int valA, ref int valB)
+        {
+            int value = valA;
+            valA = valB;
+            valB = value;
+        } // end Switch val
+    } // end project 1
+} // end project 1
