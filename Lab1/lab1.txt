@@ -1,0 +1,55 @@
+﻿///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	Solution/Project:  Lab 1
+//	File Name:         lab1
+//	
+//	Course:            Algorithms	
+//	Author:            Raven Foster, fosterrn@estu.edu, Dept. of Computing, East Tennessee State University
+//	Created:           8/31/2020
+//	Copyright:         Raven Foster, 2020
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lab1
+{
+    /// <summary>
+    ///   <para>displays the number inputed until the number 42 is input then the program ends.</para>
+    ///   <para></para>
+    /// </summary>
+    class lab1
+    {
+        /// <summary>Defines the entry point of the application.</summary>
+        /// <param name="args">The arguments.</param>
+        static void Main(string[] args)
+        {
+            bool wrongNumber = false;
+
+            while(!wrongNumber)
+            {
+                int answer;
+                String instring = Console.ReadLine();
+                Int32.TryParse(instring, out answer);
+
+                if(answer != 42)
+                {
+                    Console.WriteLine(answer);
+                }
+                else
+                {
+                    wrongNumber = true;
+                }
+
+                
+
+
+            }
+
+
+        }
+    }
+}
